@@ -15,8 +15,8 @@ def scrape_articles(url, category):
 
     # Function to store scraped articles in a CSV file
 
-
 def store_data(articles, filename):
+    
     # Store articles in a CSV file
     with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['title', 'description', 'url', 'category']
