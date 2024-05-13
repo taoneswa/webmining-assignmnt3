@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from nltk.tokenize import word_tokenize
 
-nltk.download('punkt', download_dir="nltk_data")
+nltk.download('punkt')
 def fetch_news_api():
     url = "https://newsapi.org/v2/top-headlines"
     params = {
