@@ -11,14 +11,14 @@ def scrape_articles(url, category):
     # Scraping logic here
     # Return list of articles (title, description, URL) for the specified category
 
-# Function to store scraped articles in a CSV file
-def store_data(articles, filename):
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['title', 'description', 'url', 'category']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for article in articles:
-            writer.writerow(article)
+# # Function to store scraped articles in a CSV file
+# def store_data(articles, filename):
+#     with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+#         fieldnames = ['title', 'description', 'url', 'category']
+#         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#         writer.writeheader()
+#         for article in articles:
+#             writer.writerow(article)
 
 # Function to preprocess text
 def preprocess_text(articles):
