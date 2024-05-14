@@ -1,12 +1,11 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
 
 
-class NewspapersclustItem(scrapy.Item):
+class ScrapenewsItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    category = scrapy.Field()
+    content = scrapy.Field()
+    source = scrapy.Field()
+    link = scrapy.Field()

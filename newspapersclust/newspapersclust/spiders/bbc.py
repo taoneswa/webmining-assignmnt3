@@ -1,28 +1,38 @@
 import scrapy
+from ..items import ScrapenewsItem
 
 
-class BbcSpider(scrapy.Spider):
-    name = "bbc"
+class ScrapeNews(scrapy.Spider):
+    name = 'news_bbc'
     start_urls = [
-        'https://www.bbc.com/business',
-        'https://www.bbc.co.uk/arts',
-        'https://www.bbc.com/sport',
-        'https://www.bbc.com/news/politics'
+        # 'https://www.bbc.com/news/us-canada' # this is politics
+        # 'https://www.bbc.com/culture'
+        'https://www.bbc.com/business'
+        # 'https://www.bbc.com/sports' #problem here
     ]
 
     def parse(self, response):
-        # Extract category from the updated structure
-        category = response.css('div.brand-title h2 a.links::text').get()
+        items = ScrapenewsItem()
 
-        for article in response.css('div.card-body'):
-            title = article.css('h3.mb-3 ::text').get()
-            link = article.css('a.text-dark::attr(href)').get()
-            content = article.css('div.mb-3.pt-2.top-article ::text').get()
+        if 'us-canada' in response.url:
+            category = 'politics'
+        else:
+            category = response.url.split('/')[-1]
 
-            scraped_info = {
-                'category': category,
-                'title': title,
-                'link': link,
-                'content': content
-            }
-            yield scraped_info
+        all_news = response.css(".khCtOO")
+
+        for news in all_news:
+            title = news.css('.bvDsJq::text').extract()
+            content = news.css('.cNPpME::text').extract()
+            source = 'BBC'
+            relative_link = response.css(
+                'div[data-testid="edinburgh-card"] a[data-testid="internal-link"]::attr(href)').get()
+            link = response.urljoin(relative_link)
+
+            items['title'] = title
+            items['category'] = category
+            items['content'] = content
+            items['source'] = source
+            items['link'] = link
+
+            yield items
